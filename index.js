@@ -1,5 +1,27 @@
 const { MongoClient } = require("mongodb");
 
+const drivers = [
+  {
+    name: "John Doe",
+    vehicleType: "Sedan",
+    isAvailable: true,
+    rating: 4.8
+  },
+  {
+    name: "Alice Smith",
+    vehicleType: "SUV",
+    isAvailable: false,
+    rating: 4.5
+  }
+];
+
+// show the data in console
+console.log(drivers);
+
+// TODO: show all the drivers name in the console
+
+// TODO: add additional driver to drivers array
+
 async function main() {
   const uri = "mongodb://127.0.0.1:27017";
   const client = new MongoClient(uri);

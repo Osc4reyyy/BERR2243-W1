@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb");
 
+// Task 1: Define Drivers
 const drivers = [
   {
     name: "John Doe",
@@ -8,7 +9,7 @@ const drivers = [
     rating: 4.8
   },
   {
-    name: "Alice Smith",
+    name: "Alice Smith",  
     vehicleType: "SUV",
     isAvailable: false,
     rating: 4.5

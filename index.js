@@ -16,12 +16,25 @@ const drivers = [
   }
 ];
 
-// show the data in console
-console.log(drivers);
 
-// TODO: show all the drivers name in the console
+// Task 2: JSON Data Operations
+// TODO : show all the drivers name in the console
+console.log("Drivers Names:");
+drivers.forEach(driver=> console.log(driver.name));
 
 // TODO: add additional driver to drivers array
+drivers.push({
+      name: "Alief Irfan",
+      vehicleType: "MPV",
+      isAvailable: true,
+      rating: 4.2
+});
+
+// show the data in console
+console.log("\nUpdated Drivers Array:");
+console.log(drivers;)
+
+
 
 async function main() {
   const uri = "mongodb://127.0.0.1:27017";

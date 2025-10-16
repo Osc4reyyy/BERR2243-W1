@@ -32,8 +32,7 @@ drivers.push({
 
 // show the data in console
 console.log("\nUpdated Drivers Array:");
-console.log(drivers;)
-
+console.log(drivers);
 
 
 async function main() {
@@ -41,11 +40,20 @@ async function main() {
   const client = new MongoClient(uri);
 
   try {
-    await client.connect();
-    console.log("Connected to MongoDB!");
-
+    await client.connect();   
     const db = client.db("testDB");
-    const users = db.collection("users");
+
+    // Task 3: Insert Drivers into MongoDB
+    const driversCollection = db.collection("drivers");
+
+    drivers.forEach(async (driver) => {
+      const result = await driversCollection.insertOne(driver);
+      console.log('New driver created with result: ${result}');
+    });
+
+  } finally {
+    await client.close();
+  }
 
     const result = await users.insertOne({ name: "Test User", age: 25 });
     console.log("Inserted document with _id:", result.insertedId);

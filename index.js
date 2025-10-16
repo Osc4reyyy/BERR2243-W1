@@ -65,16 +65,16 @@ async function main() {
     //console.log(availableDrivers);
 
     // Task 5: Update John Doe's rating +0.1
-    //const updateResult = await users.updateOne(
-      //{ name: "John Doe"},
-      //{ $inc: { rating: 0.10 }}
+    const updateResult = await users.updateOne(
+      { name: "John Doe"},
+      { $inc: { rating: 0.10 }}
     );
-    //console.log(`\nUpdated ${updateResult.modifiedCount} driver (John Doe).`);
+    console.log(`\nUpdated ${updateResult.modifiedCount} driver (John Doe).`);
 
-    //const updatedJohn = await users.findOne({ name: "John Doe" });
-    //console.log(`John Doe's new rating: ${updatedJohn.rating}`);
+    const updatedJohn = await users.findOne({ name: "John Doe" });
+    console.log(`John Doe's new rating: ${updatedJohn.rating}`);
 
-    //console.log(updateResult);
+    console.log(updateResult);
 
     
 

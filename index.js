@@ -76,9 +76,17 @@ async function main() {
 
     console.log(updateResult);
 
+    // Task 6: Delete Unavailable Drivers
+    const deleteResult = await users.deleteMany({ isAvailable: false});
+    console.log(`\nDeleted ${deleteResult.deletedCount} unavailable drivers.`);
+
+    const remainingDrivers = await users.find().toArray();
+    console.log("\nRemaining drivers in the database: ");
+    console.log(remainingDrivers);
+
+
+
     
-
-
   } catch (err) {
     console.error("Error:", err);
   } finally {

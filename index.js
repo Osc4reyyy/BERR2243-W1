@@ -1,4 +1,11 @@
+const express = require('express');
 const { MongoClient } = require("mongodb");
+const port = 3000
+
+const app = express();
+app.use(express.json());
+
+let db;
 
 // Task 1: Define Drivers
 const drivers = [
@@ -53,9 +60,9 @@ async function main() {
     const users = db.collection("users");
 
     // Task 3: Insert Drivers into MongoDB
+    await users.deleteMany({});
     const insertResult = await users.insertMany(drivers);
     console.log(`Inserted ${insertResult.insertedCount} drivers into MongoDB.`); 
-    await users.deleteMany({});
     await users.insertMany(drivers);
 
 
@@ -94,4 +101,66 @@ async function main() {
   }
 }
 
+
 main();
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
+// WEEK 3 GET /rides - Fetch all rides
+app.get('/rides', async (req, res) =>{
+  try {
+    const rides = awaitdb.collection('rides').find().toArray();
+    res.status(200).json(rides);
+  }catch (err) {
+    res.status(500).json({ error: "Failed to fetch rides"});
+  }
+});
+
+// WEEK 3 POST /rides - Create a new ride
+app.post('/rides', async (req, res) => {
+  try {
+    const result = await db.collection('rides').insertOne(req.body);
+    res.status(201).json({ id: result.insertID });
+  } catch (err) {
+    res.status(400).json({ error: "Invalid ride data" });
+  }
+});
+
+// WEEK 3 PATCH /rides/:id - Update ride status
+app.patch('/rides/:id', async (req, res) => {
+  try {
+    const result = await db.collection('rides').updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $set: { status: req.body.status } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: "Ride not found" });
+    }
+    res.status(200).json({ updated: result.modifiedCount });
+  
+  } catch (err) {
+    //Handle invalid ID format or DB errors
+    res.status(400).json({ error: "Invalid ride ID or data" });
+  }
+});
+
+// DELETE /rides/:id - Cancel a ride
+app.delete('/rides/:id', async (req, res) => {
+  try {
+    const result = await db.collection('rides').deleteOne(
+      { _id: new ObjectId(req.params.id) }
+    );
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: " Ride not found" });
+    }
+    res.status(200).json({ deleted: result.deleteCount });
+  
+  } catch (err) {
+    res.status(400).json({ error: "Invalid ride ID"});
+  }
+});
+

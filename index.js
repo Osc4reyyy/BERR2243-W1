@@ -107,3 +107,24 @@ main();
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+// WEEK 3 GET /rides - Fetch all rides
+app.get('/rides', async (req, res) =>{
+  try {
+    const rides = awaitdb.collection('rides').find().toArray();
+    res.status(200).json(rides);
+  }catch (err) {
+    res.status(500).json({ error: "Failed to fetch rides"});
+  }
+});
+
+// WEEK 3 POST /rides - Create a new ride
+app.post('/rides', async (req, res) => {
+  try {
+    const result = await db.collection('rides').insertOne(req.body);
+    res.status(201).json({ id: result.insertID });
+  } catch (err) {
+    res.status(400).json({ error: "Invalid ride data" });
+  }
+});
+

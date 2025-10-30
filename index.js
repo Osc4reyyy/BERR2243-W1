@@ -1,4 +1,11 @@
+const express = require('express');
 const { MongoClient } = require("mongodb");
+const port = 3000
+
+const app = express();
+app.use(express.json());
+
+let db;
 
 // Task 1: Define Drivers
 const drivers = [
@@ -53,9 +60,9 @@ async function main() {
     const users = db.collection("users");
 
     // Task 3: Insert Drivers into MongoDB
+    await users.deleteMany({});
     const insertResult = await users.insertMany(drivers);
     console.log(`Inserted ${insertResult.insertedCount} drivers into MongoDB.`); 
-    await users.deleteMany({});
     await users.insertMany(drivers);
 
 
@@ -94,4 +101,9 @@ async function main() {
   }
 }
 
+
 main();
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});

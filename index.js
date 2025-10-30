@@ -60,7 +60,7 @@ async function main() {
     const users = db.collection("users");
 
     // Task 3: Insert Drivers into MongoDB
-    await users.deleteMany({});
+    await db.dropCollection("users").catch(() => {});
     const insertResult = await users.insertMany(drivers);
     console.log(`Inserted ${insertResult.insertedCount} drivers into MongoDB.`); 
     await users.insertMany(drivers);

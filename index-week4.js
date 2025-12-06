@@ -110,8 +110,10 @@ app.post('/login',async (req, res) => {
 
 
     // Respond success
+    console.log(`✅ ${user.role.toUpperCase()} logged in successfully:`, user.email);
+
     res.status(200).json({
-      message: '✅ Login successful as ${user.role}',
+      message: '✅ Login successful !',
       user: {
         id: user._id,
         username: user.username,
@@ -126,6 +128,184 @@ app.post('/login',async (req, res) => {
     res.status(500).json({ error: 'Failed to login' });
   }
 });
+
+// 🔒 Middleware: Verify JWT Token
+function verifyToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+
+  if (!authHeader) {
+    return res.status(403).json({ error: 'No token provided' });
+  }
+
+  const token = authHeader.split(' ')[1]; // Expecting "Bearer <token>"
+
+  if (!token) {
+    return res.status(403).json({ error: 'Invalid token format' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // attach user info to request
+    console.log("🔐 Token verified for:", decoded.email);
+    next(); // continue to next route
+  } catch (error) {
+    console.error("❌ Invalid token:", error);
+    res.status(401).json({ error: 'Unauthorized: Invalid or expired token' });
+  }
+}
+
+
+// 🔹 Step 5: Protected Route Example
+app.get('/profile', verifyToken, async (req, res) => {
+  try{
+    const user = await db.collection('users').findOne(
+      { email: req.user.email },
+      { projection: { password: 0 } }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: ' Profile fetched successfully ',
+      profile: user
+    });
+
+  } catch (error) {
+    console.error(" Error fetching profile:", error);
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+});
+
+// 🔹 Step 6A:
+// 🔹 Create Ride (Customer)
+app.post('/ride', verifyToken, async (req, res) => {
+  try {
+    // Only customers can request rides
+    if (req.user.role !== 'customer') {
+      return res.status(403).json({ error: 'Only customers can request rides' });
+    }
+
+    const { pickup, destination, price } = req.body;
+
+    if (!pickup || !destination || !price) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const ride = {
+      customerId: req.user.userId,
+      pickup,
+      destination,
+      price,
+      status: 'pending',
+      driverId: null,
+      createdAt: new Date()
+    };
+
+    const result = await db.collection('rides').insertOne(ride);
+
+    res.status(201).json({
+      message: "🚕 Ride created successfully!",
+      rideId: result.insertedId
+    });
+
+  } catch (error) {
+    console.error("❌ Ride creation error:", error);
+    res.status(500).json({ error: "Failed to create ride" });
+  }
+});
+
+// 🔹 Step 6B: 
+// 🔹 Driver: View Available Rides
+app.get('/rides/available', verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== 'driver') {
+      return res.status(403).json({ error: 'Only drivers can view available rides' });
+    }
+
+    const rides = await db.collection('rides')
+      .find({ status: 'pending' })
+      .toArray();
+
+    res.status(200).json({
+      message: "📋 Available rides:",
+      rides
+    });
+
+  } catch (error) {
+    console.error("❌ Error fetching rides:", error);
+    res.status(500).json({ error: 'Failed to fetch rides' });
+  }
+});
+
+// 🔹 Step 6C:
+// 🔹 Driver Accept Ride
+app.patch('/rides/accept/:rideId', verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== 'driver') {
+      return res.status(403).json({ error: 'Only drivers can accept rides' });
+    }
+
+    const rideId = req.params.rideId;
+
+    const result = await db.collection('rides').updateOne(
+      { _id: new ObjectId(rideId), status: 'pending' },
+      {
+        $set: {
+          status: 'accepted',
+          driverId: req.user.userId
+        }
+      }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(400).json({ error: 'Ride not found or already accepted' });
+    }
+
+    res.status(200).json({ message: '🚗 Ride accepted successfully!' });
+
+  } catch (error) {
+    console.error("❌ Accept ride error:", error);
+    res.status(500).json({ error: 'Failed to accept ride' });
+  }
+});
+
+// 🔹 Step 6D:
+// 🔹 Driver Update Ride Status
+app.patch('/rides/status/:rideId', verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== 'driver') {
+      return res.status(403).json({ error: 'Only drivers can update ride status' });
+    }
+
+    const { status } = req.body;
+    const allowed = ['picked-up', 'completed', 'cancelled'];
+
+    if (!allowed.includes(status)) {
+      return res.status(400).json({ error: 'Invalid status' });
+    }
+
+    const rideId = req.params.rideId;
+
+    const result = await db.collection('rides').updateOne(
+      { _id: new ObjectId(rideId), driverId: req.user.userId },
+      { $set: { status } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: 'Ride not found or not assigned to this driver' });
+    }
+
+    res.status(200).json({ message: `🚦 Ride status updated to: ${status}` });
+
+  } catch (error) {
+    console.error("❌ Status update error:", error);
+    res.status(500).json({ error: 'Failed to update ride status' });
+  }
+});
+
+
 
 // 🔹 Start server
 connectDB()

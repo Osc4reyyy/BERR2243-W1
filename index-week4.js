@@ -301,8 +301,10 @@ app.get('/dashboard/login', (req, res) => {
                     resultBox.style.display = 'block';
                     if (res.ok) {
                         resultBox.className = 'result-box success';
-                        resultBox.innerHTML = '✅ Login Successful!<br><br><b>Token:</b> ' + data.token.substring(0, 20) + '...';
-                        // Save token (Optional for this demo)
+                        // HIDDEN TOKEN: We just show a success message now
+                        resultBox.innerHTML = '✅ <b>Login Successful!</b><br><small>Redirecting you shortly...</small>';
+                        
+                        // We still save it in the browser memory for later use
                         localStorage.setItem('token', data.token);
                     } else {
                         resultBox.className = 'result-box error';

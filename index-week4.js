@@ -122,6 +122,107 @@ app.get('/', async (req, res) => {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 🔹 PUBLIC ADMIN DASHBOARD (For Presentation Demo Only) 📊
+app.get('/dashboard/admin', async (req, res) => {
+    try {
+        const users = db.collection('users');
+        const rides = db.collection('rides');
+
+        // 1. Fetch Real Data
+        const totalUsers = await users.countDocuments();
+        const totalDrivers = await users.countDocuments({ role: "driver" });
+        const totalCustomers = await users.countDocuments({ role: "customer" });
+
+        const pendingRides = await rides.countDocuments({ status: "pending" });
+        const activeRides = await rides.countDocuments({ status: "accepted" }); 
+        const completedRides = await rides.countDocuments({ status: "completed" });
+
+        // Calculate Revenue
+        const earnings = await rides.aggregate([
+            { $match: { status: "completed" } },
+            { $group: { _id: null, total: { $sum: "$price" } } }
+        ]).toArray();
+        const totalRevenue = earnings.length > 0 ? earnings[0].total : 0;
+
+        // 2. Generate HTML
+        const html = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Admin Analytics 📊</title>
+            <style>
+                :root { --taxi-yellow: #FFC107; --dark-bg: #1a1a1a; --card-bg: #2d2d2d; --text: #ffffff; }
+                body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark-bg); color: var(--text); padding: 40px; }
+                .container { max-width: 1000px; margin: 0 auto; }
+                h1 { color: var(--taxi-yellow); text-align: center; font-size: 2.5rem; margin-bottom: 10px; }
+                .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+                .card { background: var(--card-bg); padding: 25px; border-radius: 12px; text-align: center; border-bottom: 4px solid var(--taxi-yellow); }
+                .card .number { font-size: 3rem; font-weight: bold; color: white; margin: 10px 0; }
+                .chart-container { margin-top: 40px; background: var(--card-bg); padding: 30px; border-radius: 12px; }
+                .bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 200px; padding-top: 20px; }
+                .bar { width: 50px; background: var(--taxi-yellow); border-radius: 5px 5px 0 0; }
+                .btn-home { display: inline-block; margin-top: 30px; padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>System Analytics 📊</h1>
+                <p style="text-align:center; color:#888;">Real-time Data from MongoDB Atlas</p>
+                <br>
+                <div class="stats-grid">
+                    <div class="card">
+                        <h3>Total Users</h3>
+                        <p class="number">${totalUsers}</p>
+                        <small>Drivers: ${totalDrivers} | Customers: ${totalCustomers}</small>
+                    </div>
+                    <div class="card">
+                        <h3>Total Revenue</h3>
+                        <p class="number" style="color:var(--taxi-yellow)">RM ${totalRevenue.toFixed(2)}</p>
+                    </div>
+                    <div class="card">
+                        <h3>Completed Rides</h3>
+                        <p class="number" style="color:#28a745">${completedRides}</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="text-align:center; color:#aaa;">Ride Status Overview</h3>
+                    <div class="bar-chart">
+                        <div style="text-align:center">
+                            <div class="bar" style="height: ${pendingRides * 20 + 10}px; background: #ffc107;"></div>
+                            <small>Pending (${pendingRides})</small>
+                        </div>
+                        <div style="text-align:center">
+                            <div class="bar" style="height: ${activeRides * 20 + 10}px; background: #17a2b8;"></div>
+                            <small>Active (${activeRides})</small>
+                        </div>
+                        <div style="text-align:center">
+                            <div class="bar" style="height: ${completedRides * 20 + 10}px; background: #28a745;"></div>
+                            <small>Done (${completedRides})</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center;">
+                    <a href="/" class="btn-home">⬅ Back to Home Dashboard</a>
+                </div>
+            </div>
+        </body>
+        </html>
+        `;
+
+        res.send(html);
+
+    } catch (error) {
+        console.error("Dashboard error:", error);
+        res.status(500).send("<h3>❌ Error loading dashboard</h3>");
+    }
+});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // 🔹 User Registration API
 app.post('/register', async (req, res) => {
   try {

@@ -1,6 +1,6 @@
 # 🚕 Group C MaximDB Backend System (Ride Hailing App)
 
-Backend infrastructure for the Maxim Ride Hailing Application developed for **BERR2423**. This system manages Users (Customers/Drivers), Bookings, Vehicles, and Administrative Analytics using a robust RESTful API architecture.
+Backend infrastructure for the MaximDB Ride Hailing Application developed by **Group C Engineering Team (Alief Irfan, Ali, Zawawi)** for **BERR2423**. This system manages Users (Customers/Drivers), Bookings, Vehicles, and Administrative Analytics using a robust RESTful API architecture.
 
 ---
 

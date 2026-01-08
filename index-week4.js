@@ -24,8 +24,118 @@ async function connectDB() {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // 🔹 Example Route to Test Connection
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Maxim Backend API 🚕' });
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 🔹 PROFESSIONAL API DASHBOARD (HTML UI)
+app.get('/', async (req, res) => {
+    
+    // We can fetch some public stats if we want, or just show the UI
+    const dbStatus = db ? "Connected 🟢" : "Disconnected 🔴";
+
+    const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Maxim API Dashboard 🚕</title>
+        <style>
+            :root { --taxi-yellow: #FFC107; --dark-bg: #1a1a1a; --card-bg: #2d2d2d; --text: #ffffff; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-bg); color: var(--text); margin: 0; padding: 0; }
+            .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+            
+            /* Header */
+            header { text-align: center; margin-bottom: 50px; }
+            h1 { font-size: 3rem; margin: 0; color: var(--taxi-yellow); text-shadow: 0px 0px 10px rgba(255, 193, 7, 0.3); }
+            p.subtitle { color: #aaa; font-size: 1.2rem; margin-top: 10px; }
+            
+            /* Status Badge */
+            .status-badge { background: #155724; color: #d4edda; padding: 8px 16px; border-radius: 20px; font-weight: bold; display: inline-block; margin-top: 15px; border: 1px solid #c3e6cb; }
+
+            /* Grid Layout */
+            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+            
+            /* Cards */
+            .card { background-color: var(--card-bg); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: transform 0.2s; border-left: 5px solid var(--taxi-yellow); }
+            .card:hover { transform: translateY(-5px); }
+            .card h3 { margin-top: 0; color: var(--taxi-yellow); }
+            .card ul { list-style: none; padding: 0; }
+            .card li { margin: 8px 0; font-size: 0.9rem; color: #ddd; display: flex; justify-content: space-between; }
+            .method { font-weight: bold; font-size: 0.8rem; padding: 2px 6px; border-radius: 4px; }
+            .get { background: #007bff; color: white; }
+            .post { background: #28a745; color: white; }
+            .patch { background: #ffc107; color: black; }
+            .delete { background: #dc3545; color: white; }
+
+            /* Footer */
+            footer { margin-top: 50px; text-align: center; color: #666; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 20px; }
+            
+            .btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background: var(--taxi-yellow); color: black; text-decoration: none; font-weight: bold; border-radius: 5px; }
+            .btn:hover { background: #e0a800; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Maxim API 🚕</h1>
+                <p class="subtitle">Secure Backend System for Ride Sharing</p>
+                <div class="status-badge">System Operational • ${dbStatus}</div>
+                <br>
+                <a href="https://documenter.getpostman.com/view/YOUR_LINK_HERE" class="btn" target="_blank">📄 View Postman Docs</a>
+            </header>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>🔐 Authentication</h3>
+                    <ul>
+                        <li><span>Register User</span> <span class="method post">POST</span></li>
+                        <li><span>Login</span> <span class="method post">POST</span></li>
+                        <li><span>View Profile</span> <span class="method get">GET</span></li>
+                        <li><span>Delete Account</span> <span class="method delete">DEL</span></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🛵 Driver Ops</h3>
+                    <ul>
+                        <li><span>Register Vehicle</span> <span class="method post">POST</span></li>
+                        <li><span>Available Rides</span> <span class="method get">GET</span></li>
+                        <li><span>Accept Ride</span> <span class="method patch">PATCH</span></li>
+                        <li><span>Update Status</span> <span class="method patch">PATCH</span></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📱 Customer Ops</h3>
+                    <ul>
+                        <li><span>Book Ride</span> <span class="method post">POST</span></li>
+                        <li><span>Check Status</span> <span class="method get">GET</span></li>
+                        <li><span>Cancel Ride</span> <span class="method delete">DEL</span></li>
+                        <li><span>Rate Driver</span> <span class="method post">POST</span></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🛡️ Admin Portal</h3>
+                    <ul>
+                        <li><span>System Analytics</span> <span class="method get">GET</span></li>
+                        <li><span>Passenger Stats</span> <span class="method get">GET</span></li>
+                        <li><span>Block User</span> <span class="method patch">PATCH</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <footer>
+                <p>🚀 Powered by Node.js, Express & MongoDB Atlas | Deployed on Azure</p>
+                <p>&copy; ${new Date().getFullYear()} Ahmad Alief Irfan</p>
+            </footer>
+        </div>
+    </body>
+    </html>
+    `;
+
+    res.send(html);
+});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

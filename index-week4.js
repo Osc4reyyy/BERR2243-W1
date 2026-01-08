@@ -23,12 +23,10 @@ async function connectDB() {
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// 🔹 Example Route to Test Connection
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // 🔹 PROFESSIONAL API DASHBOARD (HTML UI)
 app.get('/', async (req, res) => {
     
-    // We can fetch some public stats if we want, or just show the UI
+    // Check if DB is connected
     const dbStatus = db ? "Connected 🟢" : "Disconnected 🔴";
 
     const html = `
@@ -42,19 +40,11 @@ app.get('/', async (req, res) => {
             :root { --taxi-yellow: #FFC107; --dark-bg: #1a1a1a; --card-bg: #2d2d2d; --text: #ffffff; }
             body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-bg); color: var(--text); margin: 0; padding: 0; }
             .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-            
-            /* Header */
             header { text-align: center; margin-bottom: 50px; }
             h1 { font-size: 3rem; margin: 0; color: var(--taxi-yellow); text-shadow: 0px 0px 10px rgba(255, 193, 7, 0.3); }
             p.subtitle { color: #aaa; font-size: 1.2rem; margin-top: 10px; }
-            
-            /* Status Badge */
             .status-badge { background: #155724; color: #d4edda; padding: 8px 16px; border-radius: 20px; font-weight: bold; display: inline-block; margin-top: 15px; border: 1px solid #c3e6cb; }
-
-            /* Grid Layout */
             .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-            
-            /* Cards */
             .card { background-color: var(--card-bg); border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: transform 0.2s; border-left: 5px solid var(--taxi-yellow); }
             .card:hover { transform: translateY(-5px); }
             .card h3 { margin-top: 0; color: var(--taxi-yellow); }
@@ -65,10 +55,7 @@ app.get('/', async (req, res) => {
             .post { background: #28a745; color: white; }
             .patch { background: #ffc107; color: black; }
             .delete { background: #dc3545; color: white; }
-
-            /* Footer */
             footer { margin-top: 50px; text-align: center; color: #666; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 20px; }
-            
             .btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background: var(--taxi-yellow); color: black; text-decoration: none; font-weight: bold; border-radius: 5px; }
             .btn:hover { background: #e0a800; }
         </style>
@@ -80,7 +67,7 @@ app.get('/', async (req, res) => {
                 <p class="subtitle">Secure Backend System for Ride Sharing</p>
                 <div class="status-badge">System Operational • ${dbStatus}</div>
                 <br>
-                <a href="https://documenter.getpostman.com/view/YOUR_LINK_HERE" class="btn" target="_blank">📄 View Postman Docs</a>
+                <a href="#" class="btn">📄 View Postman Docs</a>
             </header>
 
             <div class="grid">
@@ -93,7 +80,6 @@ app.get('/', async (req, res) => {
                         <li><span>Delete Account</span> <span class="method delete">DEL</span></li>
                     </ul>
                 </div>
-
                 <div class="card">
                     <h3>🛵 Driver Ops</h3>
                     <ul>
@@ -103,7 +89,6 @@ app.get('/', async (req, res) => {
                         <li><span>Update Status</span> <span class="method patch">PATCH</span></li>
                     </ul>
                 </div>
-
                 <div class="card">
                     <h3>📱 Customer Ops</h3>
                     <ul>
@@ -113,7 +98,6 @@ app.get('/', async (req, res) => {
                         <li><span>Rate Driver</span> <span class="method post">POST</span></li>
                     </ul>
                 </div>
-
                 <div class="card">
                     <h3>🛡️ Admin Portal</h3>
                     <ul>
@@ -126,7 +110,7 @@ app.get('/', async (req, res) => {
 
             <footer>
                 <p>🚀 Powered by Node.js, Express & MongoDB Atlas | Deployed on Azure</p>
-                <p>&copy; ${new Date().getFullYear()} Ahmad Alief Irfan</p>
+                <p>&copy; ${new Date().getFullYear()} Maxim Backend</p>
             </footer>
         </div>
     </body>
@@ -134,8 +118,6 @@ app.get('/', async (req, res) => {
     `;
 
     res.send(html);
-});
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -167,15 +149,14 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert new user 
-    // Insert new user (with debug logs)
-      const newUser = { username, email, password: hashedPassword, role, createdAt: new Date() };
-      console.log("🧠 Data being inserted into MongoDB:", newUser);
+    const newUser = { username, email, password: hashedPassword, role, createdAt: new Date() };
+    console.log("🧠 Data being inserted into MongoDB:", newUser);
 
-      const result = await db.collection('users').insertOne(newUser);
-      console.log("✅ Insert result:", result);
+    const result = await db.collection('users').insertOne(newUser);
+    console.log("✅ Insert result:", result);
 
 
-    // Respond success - FIXED
+    // Respond success
     res.status(201).json({
       message: `✅ ${role.charAt(0).toUpperCase() + role.slice(1)} registered successfully!`,
       userId: result.insertedId,
@@ -283,7 +264,7 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-// 🔹 AUTH MIDDLEWARE
+// 🔹 AUTH MIDDLEWARE (Alternative)
 function authMiddleware(req, res, next) {
   try {
     const authHeader = req.headers.authorization;

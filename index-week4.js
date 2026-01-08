@@ -223,6 +223,133 @@ app.get('/dashboard/admin', async (req, res) => {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 🔹 PUBLIC LOGIN & REGISTER UI (For Presentation Demo) 🔐
+app.get('/dashboard/login', (req, res) => {
+    const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login & Register 🔐</title>
+        <style>
+            :root { --taxi-yellow: #FFC107; --dark-bg: #1a1a1a; --card-bg: #2d2d2d; --text: #ffffff; }
+            body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark-bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+            .container { display: flex; gap: 40px; max-width: 900px; width: 100%; padding: 20px; flex-wrap: wrap; }
+            .form-box { flex: 1; background: var(--card-bg); padding: 40px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.3); border-top: 5px solid var(--taxi-yellow); min-width: 300px; }
+            h2 { color: var(--taxi-yellow); text-align: center; margin-bottom: 30px; }
+            
+            input, select { width: 100%; padding: 12px; margin: 10px 0; background: #333; border: 1px solid #444; color: white; border-radius: 5px; box-sizing: border-box; }
+            input:focus { border-color: var(--taxi-yellow); outline: none; }
+            
+            button { width: 100%; padding: 12px; margin-top: 20px; background: var(--taxi-yellow); color: black; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+            button:hover { background: #e0a800; }
+            
+            .result-box { margin-top: 20px; padding: 15px; background: #222; border-radius: 5px; font-size: 0.9rem; color: #aaa; word-break: break-all; display: none; border-left: 3px solid #777; }
+            .success { border-color: #28a745; color: #d4edda; }
+            .error { border-color: #dc3545; color: #f8d7da; }
+
+            .home-link { text-align: center; width: 100%; margin-top: 20px; }
+            .home-link a { color: #888; text-decoration: none; }
+            .home-link a:hover { color: var(--taxi-yellow); }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            
+            <div class="form-box">
+                <h2>Login 🔑</h2>
+                <input type="email" id="loginEmail" placeholder="Email Address">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button onclick="login()">Sign In</button>
+                <div id="loginResult" class="result-box"></div>
+            </div>
+
+            <div class="form-box">
+                <h2>Register 📝</h2>
+                <input type="text" id="regUser" placeholder="Username">
+                <input type="email" id="regEmail" placeholder="Email Address">
+                <input type="password" id="regPass" placeholder="Password">
+                <select id="regRole">
+                    <option value="customer">Customer</option>
+                    <option value="driver">Driver</option>
+                </select>
+                <button onclick="register()">Create Account</button>
+                <div id="regResult" class="result-box"></div>
+            </div>
+
+            <div class="home-link">
+                <a href="/">⬅ Back to Home Dashboard</a>
+            </div>
+        </div>
+
+        <script>
+            // LOGIN FUNCTION
+            async function login() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const resultBox = document.getElementById('loginResult');
+
+                try {
+                    const res = await fetch('/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+
+                    resultBox.style.display = 'block';
+                    if (res.ok) {
+                        resultBox.className = 'result-box success';
+                        resultBox.innerHTML = '✅ Login Successful!<br><br><b>Token:</b> ' + data.token.substring(0, 20) + '...';
+                        // Save token (Optional for this demo)
+                        localStorage.setItem('token', data.token);
+                    } else {
+                        resultBox.className = 'result-box error';
+                        resultBox.innerText = '❌ ' + data.error;
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+
+            // REGISTER FUNCTION
+            async function register() {
+                const username = document.getElementById('regUser').value;
+                const email = document.getElementById('regEmail').value;
+                const password = document.getElementById('regPass').value;
+                const role = document.getElementById('regRole').value;
+                const resultBox = document.getElementById('regResult');
+
+                try {
+                    const res = await fetch('/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, email, password, role })
+                    });
+                    const data = await res.json();
+
+                    resultBox.style.display = 'block';
+                    if (res.ok) {
+                        resultBox.className = 'result-box success';
+                        resultBox.innerText = '✅ ' + data.message;
+                    } else {
+                        resultBox.className = 'result-box error';
+                        resultBox.innerText = '❌ ' + data.error;
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        </script>
+    </body>
+    </html>
+    `;
+    res.send(html);
+});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // 🔹 User Registration API
 app.post('/register', async (req, res) => {
   try {

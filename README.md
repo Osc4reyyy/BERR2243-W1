@@ -1,4 +1,4 @@
-# 🚕 Group C Maxim Backend System (Ride Hailing App)
+# 🚕 Group C MaximDB Backend System (Ride Hailing App)
 
 Backend infrastructure for the Maxim Ride Hailing Application developed for **BERR2423**. This system manages Users (Customers/Drivers), Bookings, Vehicles, and Administrative Analytics using a robust RESTful API architecture.
 

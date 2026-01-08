@@ -1,0 +1,720 @@
+{
+	"info": {
+		"_postman_id": "f244e3cd-f769-4eeb-9aba-447d794fc66e",
+		"name": "My Collection",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49663060",
+		"_collection_link": "https://osc4reyyy-5041193.postman.co/workspace/Ahmad-Alief-Irfan's-Workspace~ab67a00e-5114-451a-81c2-47cf190e5d16/collection/49663060-f244e3cd-f769-4eeb-9aba-447d794fc66e?action=share&source=collection_link&creator=49663060"
+	},
+	"item": [
+		{
+			"name": "MaximDB",
+			"item": [
+				{
+					"name": "Welcome to MaximDB",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"za\",\r\n  \"email\": \"za@gmail.com\",\r\n  \"password\": \"54321\",\r\n  \"role\": \"driver\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/register",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n  \"email\": \"za@gmail.com\",\r\n  \"password\": \"54321\"\r\n \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/login",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Verification Middleware",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/profile",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Customer or Driver Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/my-profile",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"my-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer or Driver Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"zaki\",\r\n  \"email\": \"zaki@gmail.com\",\r\n  \"password\": \"54321\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/my-profile",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"my-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer or Driver Profile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/delete-account",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"delete-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver Creates Vehicle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"vehicleType\": \"Proton Saga\",\r\n  \"plateNumber\": \"BQL5212\",\r\n  \"color\": \"Red\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/driver/vehicle",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"driver",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver Deletes Vehicle",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/driver/vehicle/695fbcf3df5d430b0bf7e625",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"driver",
+								"vehicle",
+								"695fbcf3df5d430b0bf7e625"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Creates a Ride",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI0NGRmNWQ0MzBiMGJmN2U2MjMiLCJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3Njc4ODE2MjMsImV4cCI6MTc2Nzg4ODgyM30.v0C_1LT58XdUmc49jGGsoxwrWI50tFxJ1OA3AyyminI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"pickup\": \"UTEM\",\r\n  \"destination\": \"AEON\",\r\n  \"price\": 15.00\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/rides",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"rides"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver View All Available Rides",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/rides/available",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"rides",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Updates Ride",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTNhMzc3YWMxY2IzNjgzZjI0MjE5YmQiLCJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3NjU0MjMwNTUsImV4cCI6MTc2NTQzMDI1NX0.VunpNADKqYd737tX2DOwg67moNkHJpyzEFEGVAcT1ys",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"pickup\": \"ECO\",\r\n  \"notes\": \"I am waiting at the entrance\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/rides/update/693a3995c1cb3683f24219c1",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"rides",
+								"update",
+								"693a3995c1cb3683f24219c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver Accepts a Ride",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/rides/accept/695fbd23df5d430b0bf7e626",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"rides",
+								"accept",
+								"695fbd23df5d430b0bf7e626"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Checks Ride Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI0NGRmNWQ0MzBiMGJmN2U2MjMiLCJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3Njc4ODE2MjMsImV4cCI6MTc2Nzg4ODgyM30.v0C_1LT58XdUmc49jGGsoxwrWI50tFxJ1OA3AyyminI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/rides/status/695fbd23df5d430b0bf7e626",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"rides",
+								"status",
+								"695fbd23df5d430b0bf7e626"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver Updates Ride Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"completed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/rides/status/695fbd23df5d430b0bf7e626",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"rides",
+								"status",
+								"695fbd23df5d430b0bf7e626"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Cancel Ride",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI0NGRmNWQ0MzBiMGJmN2U2MjMiLCJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3Njc4ODE2MjMsImV4cCI6MTc2Nzg4ODgyM30.v0C_1LT58XdUmc49jGGsoxwrWI50tFxJ1OA3AyyminI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/cancel-ride/695fbd23df5d430b0bf7e626",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"cancel-ride",
+								"695fbd23df5d430b0bf7e626"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Rate Driver",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI0NGRmNWQ0MzBiMGJmN2U2MjMiLCJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3Njc4ODE2MjMsImV4cCI6MTc2Nzg4ODgyM30.v0C_1LT58XdUmc49jGGsoxwrWI50tFxJ1OA3AyyminI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"driverId\": \"695fbb81df5d430b0bf7e624\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Thankyou for the ride !\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/rate-driver",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"rate-driver"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver Views Ratings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmYmI4MWRmNWQ0MzBiMGJmN2U2MjQiLCJlbWFpbCI6InphQGdtYWlsLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3Njc4ODE2NjgsImV4cCI6MTc2Nzg4ODg2OH0.5vABHUCOYfXq194kjLYTZYl7UyONpL3RsI1xfcH4x5A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/driver/695fbb81df5d430b0bf7e624/ratings",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"driver",
+								"695fbb81df5d430b0bf7e624",
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Block User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmMWU1MjE4N2U1ZTA2NTdmNTEzZmYiLCJlbWFpbCI6ImFsaWVmQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Nzg4MjcyNiwiZXhwIjoxNzY3ODg5OTI2fQ.b1L2BDcrkpD_WwFHNQ-cE1AqbCyL_Z97PnO6jOQdTz4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"block\": true }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/admin/block/695fbb44df5d430b0bf7e623",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"admin",
+								"block",
+								"695fbb44df5d430b0bf7e623"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin View System Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmMWU1MjE4N2U1ZTA2NTdmNTEzZmYiLCJlbWFpbCI6ImFsaWVmQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Nzg4MjcyNiwiZXhwIjoxNzY3ODg5OTI2fQ.b1L2BDcrkpD_WwFHNQ-cE1AqbCyL_Z97PnO6jOQdTz4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/admin/analytics",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"admin",
+								"analytics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin View Passenger Analystics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTVmMWU1MjE4N2U1ZTA2NTdmNTEzZmYiLCJlbWFpbCI6ImFsaWVmQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Nzg4MjcyNiwiZXhwIjoxNzY3ODg5OTI2fQ.b1L2BDcrkpD_WwFHNQ-cE1AqbCyL_Z97PnO6jOQdTz4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://benr2423-alief-bvhsfxf8axgsadbt.eastasia-01.azurewebsites.net/analytics/passengers",
+							"protocol": "https",
+							"host": [
+								"benr2423-alief-bvhsfxf8axgsadbt",
+								"eastasia-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"analytics",
+								"passengers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
